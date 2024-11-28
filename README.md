@@ -1,2 +1,0 @@
-# AndroidSystemAPP
-Android System APP
