@@ -1,0 +1,76 @@
+package {
+    // See: http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_app {
+    name: "CarPanConnectionService",
+    srcs: [
+        "**/*.java",
+        "src/com/rxw/panconnection/service/aidl/IUniDeviceConnection.aidl",
+        "src/com/rxw/panconnection/service/aidl/IUniDeviceConnectionCallback.aidl",
+    ],
+    manifest: "AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+
+    optimize: {
+        enabled: false,
+    },
+
+    static_libs: [
+        "panConnectionSdk",
+        "panconnection_xcore_car_lib",
+
+        "androidx.annotation_annotation",
+    ],
+
+    jni_libs: [
+        "libdds_sdk",
+        "libubiconn_core",
+    ],
+
+}
+
+cc_prebuilt_library_shared {
+    name: "libdds_sdk",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    arch: {
+        arm64: {
+            srcs: [
+                "libs/arm64-v8a/libdds_sdk.so"
+            ],
+        },
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "libubiconn_core",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    arch: {
+        arm64: {
+            srcs: [
+                "libs/arm64-v8a/libubiconn_core.so"
+            ],
+        },
+    },
+}
+
+
+android_library_import {
+  name: "panConnectionSdk",
+  aars: ["libs/panConnectionSdk.aar"],
+  sdk_version: "current",
+}
+
+java_import {
+    name: "panconnection_xcore_car_lib",
+    jars: ["libs/xcore.car.lib.jar"],
+    sdk_version: "current",
+}
