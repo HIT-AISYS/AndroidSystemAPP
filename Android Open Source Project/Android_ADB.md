@@ -5,6 +5,11 @@
 1、系统命令
 
 ```ubuntu
+// Ubuntu安装adb工具
+sudo apt install android-tools-adb
+// 查看adb版本
+adb version
+
 // 列出连接计算机的设备和模拟器实例
 adb devices
 
